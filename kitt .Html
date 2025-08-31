@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KITT Web Interface</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0f0;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .kitt-container {
+      text-align: center;
+    }
+
+    .scanner {
+      width: 300px;
+      height: 20px;
+      margin: 20px auto;
+      background: linear-gradient(to right, red, black, red);
+      background-size: 200% 100%;
+      animation: scan 1s infinite linear;
+      border-radius: 10px;
+    }
+
+    @keyframes scan {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 0%; }
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border: 2px solid #0f0;
+      background-color: #111;
+      color: #0f0;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #222;
+      color: #0f0;
+      border: 2px solid #0f0;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0f0;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="kitt-container">
+    <div class="scanner"></div>
+    <input type="text" id="command" placeholder="Speak to KITT..." />
+    <button onclick="talkToKITT()">Send</button>
+  </div>
+
+  <script>
+    function talkToKITT() {
+      const input = document.getElementById("command").value.toLowerCase();
+      let response = "I'm not sure what you mean.";
+
+      if (input.includes("hello")) response = "Hello, Michael.";
+      else if (input.includes("drive")) response = "Activating auto-drive.";
+      else if (input.includes("status")) response = "All systems are functioning within normal parameters.";
+      else if (input.includes("joke")) response = "Why did the AI cross the road? Because it calculated a 99.9% chance of humor.";
+      else if (input.includes("surreal")) response = "I am currently driving through a landscape made of jellyfish and tax forms.";
+
+      const synth = window.speechSynthesis;
+      const utter = new SpeechSynthesisUtterance(response);
+      synth.speak(utter);
+    }
+  </script>
+</body>
+</html>
